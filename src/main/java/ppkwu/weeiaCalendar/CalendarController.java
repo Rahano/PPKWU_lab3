@@ -1,5 +1,6 @@
 package ppkwu.weeiaCalendar;
 
+import ppkwu.weeiaCalendar.CalendarCreator;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
@@ -28,6 +29,9 @@ public class CalendarController {
             System.out.println(event_days.get(i).text());
             System.out.println(event_names.get(i).text());
         }
+
+        CalendarCreator calendarCreator = new CalendarCreator();
+        calendarCreator.createCalendarICS(event_names, event_days, month);
 
         return null;
 
