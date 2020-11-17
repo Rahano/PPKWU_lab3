@@ -11,6 +11,8 @@ public class CalendarController {
     public String reverseString(@RequestParam(value = "year") int year,
             @RequestParam(value = "month") int month){
 
+        String url = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + month;
+
         return null;
 
     }
