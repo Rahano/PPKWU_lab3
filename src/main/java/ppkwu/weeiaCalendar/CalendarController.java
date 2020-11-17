@@ -2,6 +2,7 @@ package ppkwu.weeiaCalendar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,14 @@ public class CalendarController {
 
         Document document = Jsoup.connect(url).get();
 
-        System.out.println(document);
+        //System.out.println(document);
+        Elements event_days = document.select("a.active");
+        Elements event_names = document.select("div.InnerBox");
+
+        for(int i = 0; i < event_days.size(); i++){
+            System.out.println(event_days.get(i).text());
+            System.out.println(event_names.get(i).text());
+        }
 
         return null;
 
