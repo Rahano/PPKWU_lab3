@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CalendarController {
 
     @RequestMapping(path = "/getEvents")
-    public String reverseString(@RequestParam(value = "year") int year,
+    public String GetWEEIACalendar(@RequestParam(value = "year") int year,
             @RequestParam(value = "month") int month) throws IOException {
 
         String url = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + String.format("%02d", month);
