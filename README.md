@@ -27,4 +27,4 @@ http://localhost:8080/getCalendar?month=10&year=2020
 ```
 
 Output:  
-[WEEIA10](https://github.com/Rahano/githubPages/blob/main/docs/WEEIA10.ics)
+[WEEIA10](https://rahano.github.io/githubPages/WEEIA10.ics)
