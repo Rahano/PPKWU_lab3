@@ -31,7 +31,7 @@ public class CalendarController {
         }
 
         CalendarCreator calendarCreator = new CalendarCreator();
-        calendarCreator.createCalendarICS(event_names, event_days, month);
+        calendarCreator.createCalendarICS(document, month);
 
         return null;
 
