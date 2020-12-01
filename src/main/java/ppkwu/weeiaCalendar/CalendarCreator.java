@@ -3,10 +3,7 @@ package ppkwu.weeiaCalendar;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.property.CalScale;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Uid;
-import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.model.property.*;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 
@@ -38,6 +35,7 @@ public class CalendarCreator {
             VEvent event = new VEvent(new Date(cal.getTime()), event_names.get(i).text());
             event.getProperties().add(new Uid(   "WeeiaCalendarExample" + i));
             URI uri = new URI(event_data.get(i).attr("href"));
+            event.getProperties().add(new Url(uri));
 
             calendar.getComponents().add(event);
         }
