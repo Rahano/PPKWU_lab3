@@ -7,7 +7,6 @@ import net.fortuna.ical4j.model.property.*;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URI;
@@ -25,8 +24,6 @@ public class CalendarCreator {
 
         File ics = generateICSFile(calendar,month);
         returnICSFile(response, ics);
-
-        System.out.println(calendar);
     }
 
     private Calendar addEvents(Calendar calendar, Document document, int month) throws URISyntaxException {
@@ -48,7 +45,7 @@ public class CalendarCreator {
         return calendar;
     }
 
-    public File generateICSFile(Calendar calendar, int month) throws IOException {
+    private File generateICSFile(Calendar calendar, int month) throws IOException {
         String name ="WEEIA";
         name += String.format("%02d", month) + ".ics";
         File ics = new File(name);
