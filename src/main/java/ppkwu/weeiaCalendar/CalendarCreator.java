@@ -7,18 +7,23 @@ import net.fortuna.ical4j.model.property.*;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class CalendarCreator {
 
-    public void createCalendarICS(Document document, int month) throws URISyntaxException {
+    public void createCalendarICS(Document document, int month) throws URISyntaxException, IOException {
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Kalendarz WEEIA//"));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
         calendar.getProperties().add(new Uid(   "WeeiaCalendarExample"));
         calendar = addEvents(calendar, document, month);
+
+        generateICSFile(calendar,month);
 
         System.out.println(calendar);
     }
@@ -40,5 +45,15 @@ public class CalendarCreator {
             calendar.getComponents().add(event);
         }
         return calendar;
+    }
+
+    public File generateICSFile(Calendar calendar, int month) throws IOException {
+        String name ="WEEIA";
+        name += String.format("%02d", month) + ".ics";
+        File ics = new File(name);
+        FileWriter fileWriter = new FileWriter(name);
+        fileWriter.write(String.valueOf(calendar));
+        fileWriter.close();
+        return ics;
     }
 }
