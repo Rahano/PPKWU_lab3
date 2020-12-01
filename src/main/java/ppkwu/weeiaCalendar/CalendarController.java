@@ -22,20 +22,10 @@ public class CalendarController {
 
         Document document = Jsoup.connect(url).get();
 
-        //System.out.println(document);
-        Elements event_days = document.select("a.active");
-        Elements event_names = document.select("div.InnerBox");
-
-        for(int i = 0; i < event_days.size(); i++){
-            System.out.println(event_days.get(i).text());
-            System.out.println(event_names.get(i).text());
-        }
-
         CalendarCreator calendarCreator = new CalendarCreator();
         calendarCreator.createCalendarICS(document, month);
 
         return null;
-
     }
 
 }
