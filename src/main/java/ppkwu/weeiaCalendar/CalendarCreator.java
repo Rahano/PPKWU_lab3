@@ -10,9 +10,12 @@ import net.fortuna.ical4j.model.property.Version;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class CalendarCreator {
 
-    public void createCalendarICS(Document document, int month){
+    public void createCalendarICS(Document document, int month) throws URISyntaxException {
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Kalendarz WEEIA//"));
         calendar.getProperties().add(Version.VERSION_2_0);
@@ -23,7 +26,7 @@ public class CalendarCreator {
         System.out.println(calendar);
     }
 
-    private Calendar addEvents(Calendar calendar, Document document, int month){
+    private Calendar addEvents(Calendar calendar, Document document, int month) throws URISyntaxException {
         Elements event_data = document.select("a.active");
         Elements event_names = document.select("div.InnerBox");
 
@@ -34,6 +37,7 @@ public class CalendarCreator {
 
             VEvent event = new VEvent(new Date(cal.getTime()), event_names.get(i).text());
             event.getProperties().add(new Uid(   "WeeiaCalendarExample" + i));
+            URI uri = new URI(event_data.get(i).attr("href"));
 
             calendar.getComponents().add(event);
         }

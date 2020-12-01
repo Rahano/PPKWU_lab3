@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 public class CalendarController {
 
     @RequestMapping(path = "/getEvents")
     public String GetWEEIACalendar(@RequestParam(value = "year") int year,
-            @RequestParam(value = "month") int month) throws IOException {
+            @RequestParam(value = "month") int month) throws IOException, URISyntaxException {
 
         String url = "http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + String.format("%02d", month);
 
