@@ -7,6 +7,7 @@ import net.fortuna.ical4j.model.property.*;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,5 +56,9 @@ public class CalendarCreator {
         fileWriter.write(String.valueOf(calendar));
         fileWriter.close();
         return ics;
+    }
+
+    private void returnICSFile(HttpServletResponse response, File ics){
+
     }
 }
