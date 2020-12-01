@@ -4,19 +4,18 @@ import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.*;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class CalendarCreator {
 
-    public void createCalendarICS(Document document, int month) throws URISyntaxException, IOException {
+    public void createCalendarICS(Document document, int month, HttpServletResponse response) throws URISyntaxException, IOException {
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Kalendarz WEEIA//"));
         calendar.getProperties().add(Version.VERSION_2_0);
@@ -24,7 +23,8 @@ public class CalendarCreator {
         calendar.getProperties().add(new Uid(   "WeeiaCalendarExample"));
         calendar = addEvents(calendar, document, month);
 
-        generateICSFile(calendar,month);
+        File ics = generateICSFile(calendar,month);
+        returnICSFile(response, ics);
 
         System.out.println(calendar);
     }
@@ -58,7 +58,10 @@ public class CalendarCreator {
         return ics;
     }
 
-    private void returnICSFile(HttpServletResponse response, File ics){
-
+    private void returnICSFile(HttpServletResponse response, File ics) throws IOException {
+        InputStream inputStream = new FileInputStream(ics);
+        response.setContentType("text/calendar;charset=utf-8");
+        IOUtils.copy(inputStream, response.getOutputStream());
+        response.flushBuffer();
     }
 }
